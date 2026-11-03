@@ -1,0 +1,6 @@
+{
+  "appId": "com.miniai.standalone",
+  "appName": "MiniAI",
+  "webDir": "www",
+  "bundledWebRuntime": false
+}

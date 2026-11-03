@@ -1,0 +1,14 @@
+{
+  "name": "MiniAI 1.0 Standalone",
+  "short_name": "MiniAI",
+  "description": "Offline-capable handwritten digit recognition",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#080d1a",
+  "theme_color": "#0b1020",
+  "orientation": "portrait",
+  "icons": [
+    {"src":"./assets/icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any"}
+  ]
+}

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b1020">
+  <meta name="description" content="MiniAI handwritten digit recognition, running locally on your device.">
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" href="./assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./style.css">
+  <title>MiniAI 1.0</title>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-icon">✦</div>
+        <div><div class="brand-name">MiniAI <span>1.0</span></div><div class="brand-sub">ON-DEVICE DIGIT RECOGNITION</div></div>
+      </div>
+      <div class="status" id="modelStatus"><i></i><span>Loading AI model…</span></div>
+    </header>
+
+    <section class="intro">
+      <div class="eyebrow">YOUR PERSONAL AI LAB</div>
+      <h1>Draw a digit.<br><span>Let AI recognize it.</span></h1>
+      <p>Your drawing is processed on this device. No image is uploaded to a server.</p>
+    </section>
+
+    <section class="workspace">
+      <div class="panel draw-panel">
+        <div class="panel-heading"><div><span class="step">01</span><h2>Draw here</h2></div><span class="hint">0–9</span></div>
+        <div class="canvas-wrap">
+          <canvas id="drawCanvas" width="320" height="320" aria-label="Drawing canvas"></canvas>
+          <div class="canvas-placeholder" id="placeholder"><span>✎</span><b>Draw a digit</b><small>Use your finger, mouse or stylus</small></div>
+        </div>
+        <div class="controls">
+          <button class="btn secondary" id="clearBtn" type="button">Clear</button>
+          <button class="btn primary" id="predictBtn" type="button" disabled>Recognize digit <span>→</span></button>
+        </div>
+        <div class="small-note" id="message">Preparing the local AI engine…</div>
+      </div>
+
+      <div class="panel result-panel">
+        <div class="panel-heading"><div><span class="step">02</span><h2>Prediction</h2></div><span class="live-tag">LIVE MODEL</span></div>
+        <div class="result-main">
+          <div class="predicted-digit" id="predictedDigit">—</div>
+          <div class="result-copy"><b id="resultTitle">Waiting for input</b><span id="resultSubtitle">Draw a digit and tap Recognize.</span></div>
+        </div>
+        <div class="confidence-title"><span>CLASS CONFIDENCE</span><span id="confidenceLabel">—</span></div>
+        <div id="bars" class="bars">
+          <div class="empty-bars">Your top predictions will appear here.</div>
+        </div>
+        <div class="model-info">
+          <div><span>MODEL</span><b>MiniAI 1.0</b></div>
+          <div><span>INPUT</span><b>8 × 8 pixels</b></div>
+          <div><span>ENGINE</span><b>ONNX Runtime</b></div>
+          <div><span>PROCESSING</span><b>On device</b></div>
+        </div>
+      </div>
+    </section>
+
+    <footer><span>✦ MiniAI 1.0 Standalone</span><span>Private · Local inference · No account</span></footer>
+  </main>
+  <script src="./vendor/ort.min.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
