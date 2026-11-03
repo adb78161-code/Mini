@@ -28,7 +28,13 @@ jobs:
           java-version: 17
 
       - name: Setup Android
-        uses: android-actions/setup-android@v3
+  uses: android-actions/setup-android@v3
+
+- name: Install Android SDK packages
+  run: |
+  
+    yes | sdkmanager --licenses
+    sdkmanager "platform-tools" "platforms;android-35" "build-tools;35.0.0"
 
       - name: Download ONNX Runtime
         run: |
