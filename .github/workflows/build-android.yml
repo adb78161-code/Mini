@@ -1,39 +1,65 @@
+
 name: Build MiniAI Android APK
+
 on:
   workflow_dispatch:
   push:
-    branches: [main]
+    branches:
+      - main
+
 permissions:
   contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 20
-      - uses: actions/setup-java@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: 17
-      - uses: android-actions/setup-android@v3
-      - name: Download ONNX Runtime Web assets
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          packages: |
+            platform-tools
+            platforms;android-35
+            build-tools;35.0.0
+          accept-android-sdk-licenses: true
+
+      - name: Download ONNX Runtime
         run: |
           mkdir -p www/vendor
           curl -L --fail https://cdn.jsdelivr.net/npm/onnxruntime-web@1.20.1/dist/ort.min.js -o www/vendor/ort.min.js
           curl -L --fail https://cdn.jsdelivr.net/npm/onnxruntime-web@1.20.1/dist/ort-wasm-simd.wasm -o www/vendor/ort-wasm-simd.wasm
-      - name: Install dependencies and create Android project
+
+      - name: Install dependencies
         run: |
           npm install
           npx cap add android
           npx cap sync android
-      - name: Build debug APK
+
+      - name: Build APK
         run: |
           cd android
           chmod +x gradlew
           ./gradlew assembleDebug
-      - uses: actions/upload-artifact@v4
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
         with:
-          name: MiniAI-Android-debug
+          name: MiniAI-Android-APK
           path: android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+
